@@ -1,4 +1,4 @@
-const {Sequelize} = require('sequelize');
+const { Sequelize } = require('sequelize');
 var dataBase = 'restaurantBD';
 var userName = 'postgres';
 var password = '2101';
