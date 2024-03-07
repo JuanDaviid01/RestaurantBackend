@@ -4,7 +4,7 @@ const connection = require('../DataBase/connection');
 class product extends Model { }
 
 product.init({
-    productID: {
+    productId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
