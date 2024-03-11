@@ -1,5 +1,4 @@
 const connection = require('./connection');
-
 //models
 const restaurant = require('../Models/restaurant');
 const product = require('../Models/product');
