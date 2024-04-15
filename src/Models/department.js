@@ -1,23 +1,23 @@
-const { Model, DataTypes } = require('sequelize');
-const connection = require('../DataBase/connection');
+const {Model, DataTypes} = require('sequelize');
+const connection = require ('../DataBase/connection');
 
-class department extends Model { }
+class department extends Model{}
 
 department.init({
     departmentId: {
         type: DataTypes.STRING,
-        primaryKey: true,
+        primaryKey:true,
         unique: true
     },
     departmentName: {
         type: DataTypes.STRING,
         allowNull: false
     }
-}, {
+},{
     sequelize: connection,
     modelName: 'department',
     paranoid: true,
-    deleteAt: 'destroyTime'
+    deletedAt: 'destroyTime'
 });
 
 module.exports = department;

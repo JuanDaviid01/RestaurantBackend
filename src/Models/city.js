@@ -1,7 +1,7 @@
-const { Model, DataTypes } = require('sequelize');
+const {Model, DataTypes} = require('sequelize');
 const connection = require('../DataBase/connection');
 
-class city extends Model { }
+class city extends Model{}
 
 city.init({
     cityId: {
@@ -9,20 +9,19 @@ city.init({
         primaryKey: true,
         unique: true
     },
-    cityName: {
+    cityName:{
         type: DataTypes.STRING,
         allowNull: false
     },
-    departmentId: {
+    departmentId:{
         type: DataTypes.STRING,
         allowNull: false
     }
-
-}, {
-    sequelize: connection,
+},{
+    sequelize:connection,
     modelName: 'city',
     paranoid: true,
-    deleteAt: 'destroyTime'
+    deletedAt: 'destroyTime'
 });
 
 module.exports = city;

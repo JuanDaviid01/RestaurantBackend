@@ -2,15 +2,14 @@ require('express');
 const product = require('../Models/product');
 const restaurant = require('../Models/restaurant');
 
-
-async function createProduct(req, res) {
-    try {
+async function createProduct(req, res){
+    try{
         await product.create({
-            productName: req.body.productName,
-            productDescription: req.body.productDescription,
-            productPrice: req.body.productPrice,
-            restaurantId: req.body.restaurantId
-        }).then(function (data) {
+            productName : req.body.productName,
+            productDescription : req.body.productDescription,
+            productPrice : req.body.productPrice,
+            restaurantId : req.body.restaurantId
+        }).then(function (data){
             return res.status(200).json({
                 data: data
             });
@@ -19,27 +18,28 @@ async function createProduct(req, res) {
                 error: error
             });
         })
-    } catch (e) {
+    }
+    catch(e){
         console.log(e);
     }
 }
 
-async function listProducts(req, res) {
-    try {
+async function listProducts(req, res){
+    try{
         await product.findAll({
             attributes: [
-                'ProductId',
+                'productId',
                 'productName',
                 'productDescription',
-                'productPrice',
+                'productPrice'
             ],
-            order: ['prodctName'],
+            order: ['productName'],
             include: {
                 model: restaurant,
-                where: { restaurantId: req.params.restaurantId }
+                where: { restaurantId : req.params.restaurantId },
+                attributes: ['restaurantName']
             }
-
-        }).then(function (data) {
+        }).then(function (data){
             return res.status(200).json({
                 data: data
             });
@@ -48,22 +48,22 @@ async function listProducts(req, res) {
                 error: error
             });
         })
-    } catch (e) {
+    }
+    catch(e){
         console.log(e);
     }
 }
-async function updateProduct(req, res) {
-    try {
+
+async function updateProduct(req, res){
+    try{
         await product.update({
-            productName: req.body.productName,
-            productDescription: req.body.productDescription,
-            productPrice: req.body.productPrice,
-            restaurantId: req.body.restaurantId
-        }, {
-            where: {
-                productId: req.params.productId
-            }
-        }).then(function (data) {
+            productName : req.body.productName,
+            productDescription : req.body.productDescription,
+            productPrice : req.body.productPrice,
+            restaurantId : req.body.restaurantId
+        },{ 
+            where: { productId :  req.params.productId }
+        }).then(function (data){
             return res.status(200).json({
                 data: data
             });
@@ -72,18 +72,17 @@ async function updateProduct(req, res) {
                 error: error
             });
         })
-    } catch (e) {
+    }
+    catch(e){
         console.log(e);
     }
 }
 
-async function disableProduct(req, res) {
-    try {
+async function disableProduct(req, res){
+    try{
         await product.destroy({
-            where: {
-                productId: req.params.productId
-            }
-        }).then(function (data) {
+            where: { productId :  req.params.productId }
+        }).then(function (data){
             return res.status(200).json({
                 data: data
             });
@@ -92,18 +91,17 @@ async function disableProduct(req, res) {
                 error: error
             });
         })
-    } catch (e) {
+    }
+    catch(e){
         console.log(e);
     }
 }
 
-async function enableProduct(req, res) {
-    try {
+async function enableProduct(req, res){
+    try{
         await product.restore({
-            where: {
-                productId: req.params.productId
-            }
-        }).then(function (data) {
+            where: { productId :  req.params.productId }
+        }).then(function (data){
             return res.status(200).json({
                 data: data
             });
@@ -112,7 +110,8 @@ async function enableProduct(req, res) {
                 error: error
             });
         })
-    } catch (e) {
+    }
+    catch (e){
         console.log(e);
     }
 }

@@ -1,7 +1,9 @@
-const { Model, DataTypes } = require('sequelize');
+const {Model, DataTypes} = require('sequelize');
 const connection = require('../DataBase/connection');
 
-class product extends Model { }
+class product extends Model{
+
+}
 
 product.init({
     productId: {
@@ -18,18 +20,18 @@ product.init({
         allowNull: false
     },
     productPrice: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false
     },
-    restaurantID: {
+    restaurantId:{
         type: DataTypes.INTEGER,
         allowNull: false
     }
-}, {
+},{
     sequelize: connection,
     modelName: 'product',
     paranoid: true,
     deletedAt: 'destroyTime'
-})
+});
 
 module.exports = product;

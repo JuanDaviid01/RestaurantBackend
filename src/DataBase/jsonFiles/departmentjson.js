@@ -1,10 +1,6 @@
-const connection = require('../connection');
-//models
-const restaurant = require('../../Models/restaurant');
-const product = require('../../Models/product');
 const department = require('../../Models/department');
-const city = require('../../Models/city');
-function createDepartments() {
+
+function createDepartments(){
     department.bulkCreate(
         [
             {
@@ -151,5 +147,5 @@ function createDepartments() {
 }
 
 module.exports = {
-    createDepartments
+   createDepartments
 };

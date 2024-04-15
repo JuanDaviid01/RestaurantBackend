@@ -1,14 +1,15 @@
-const { Model, DataTypes } = require('sequelize');
+const {Model, DataTypes} = require('sequelize');
 const connection = require('../DataBase/connection');
 
-class restaurant extends Model { }
+class restaurant extends Model{}
+
 restaurant.init({
-    restaurantId: {
+    restaurantId:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    restaurantName: {
+    restaurantName:{
         type: DataTypes.STRING,
         unique: true,
         allowNull: false
@@ -18,21 +19,21 @@ restaurant.init({
         unique: true,
         allowNull: false
     },
-    restaurantAddress: {
+    restaurantAddress:{
         type: DataTypes.STRING,
         allowNull: false
     },
-    restaurantPhone: {
-        type: DataTypes.STRING,
+    restaurantPhone:{
+        type:DataTypes.STRING,
         allowNull: false
     },
-    cityId: {
+    cityId:{
         type: DataTypes.STRING,
         allowNull: false
-    },
-}, {
+    }
+},{
     sequelize: connection,
-    tableName: 'restaurant',
+    modelName: 'restaurant',
     paranoid: true,
     deleteAt: 'destroyTime'
 });

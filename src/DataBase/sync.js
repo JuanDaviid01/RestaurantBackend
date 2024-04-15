@@ -1,42 +1,56 @@
 const connection = require('./connection');
-//models
+
+//Models
 const restaurant = require('../Models/restaurant');
 const product = require('../Models/product');
 const department = require('../Models/department');
 const city = require('../Models/city');
+
 //JSON
-const departmentjson= require('./jsonFiles/departmentjson');
-const cityjson= require('./jsonFiles/cityjson');
-function sync() {
-    //llave foranea restaurante . prpducto
-    restaurant.hasMany(product, {
-        foreignKey: 'restarantId',
+const departamentjson = require('./jsonfiles/departmentjson');
+const cityjson = require('./jsonfiles/cityjson');
+
+async function sync(){
+    //Foreign Key restaurant - product
+    restaurant.hasMany(product,{
+        foreignKey: 'restaurantId',
         onDelete: 'restrict',
-        onUpdate: 'cascade'
+        onUpdate:'cascade'
     });
-    product.belongsTo(restaurant, {
-        foreignKey: 'restarantId',
+    product.belongsTo(restaurant,{
+        foreignKey: 'restaurantId'
     });
-    //llave foranea restaurante . departamento
+
+    //Foreign Key departament - city
     department.hasMany(city, {
         foreignKey: 'departmentId',
         onDelete: 'restrict',
-        onUpdate: 'cascade'
+        onUpdate:'cascade'
     });
-    city.belongsTo(department, {
-        foreignKey: 'departmentId',
-    });
-    //llave foranea restaurante. ciudad
-    city.hasMany(restaurant, {
+    city.belongsTo(department,{
+        foreignKey: 'departmentId'
+    })
+
+    //Foreign Key city - restaurant
+    city.hasMany(restaurant,{
         foreignKey: 'cityId',
-        onDelete:'restrict',
-        onUpdate: 'cascade'
+        onDelete: 'restrict',
+        onUpdate:'cascade'
     });
-    restaurant.belongsTo(city, {
-        foreignKey: 'cityId',
+    restaurant.belongsTo(city,{
+        foreignKey: 'cityId'
     });
 
-    departmentjson.createDepartments();
+    await connection.sync({force: false})
+    .then(() => { 
+        console.log('Synchronized DataBase');
+    })
+    .catch((error) => { 
+        console.error('Error syncing DataBase' + error);
+    }); 
+
+    //create json
+    departamentjson.createDepartments();
     cityjson.createCities();
 }
 

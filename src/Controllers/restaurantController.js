@@ -1,41 +1,43 @@
 require('express');
 const restaurant = require('../Models/restaurant');
-async function createRestaurant(req, res) {
-    try {
+
+//create restaurant
+async function createRestaurant(req, res){
+    try{
         await restaurant.create({
             restaurantName: req.body.restaurantName,
-            restaurantNit: req.body.restaurantNit,
+            restaurantNit : req.body.restaurantNit,
             restaurantAddress: req.body.restaurantAddress,
             restaurantPhone: req.body.restaurantPhone,
             cityId: req.body.cityId
-        }).then(function (data) {
+        }).then(function (data){
             return res.status(200).json({
                 data: data
             });
-        }).catch(error => {
+        }).catch(error =>{
             return res.status(400).json({
                 error: error
             });
-
         })
-    }//try
-    catch (e) {
+    }
+    catch(e){
         console.log(e);
-    }//catch
-}//crear restaurants
+    }
+}
 
-async function listRestaurants(req, res) {
-    try {
+async function listRestaurant(req, res){
+    try{
         await restaurant.findAll({
-            atributes: [
+            attributes: [
+                'restaurantId',
                 'restaurantName',
                 'restaurantNit',
-                'restaurantAdress',
+                'restaurantAddress',
                 'restaurantPhone',
                 'cityId'
             ],
             order: ['restaurantName']
-        }).then(function (data) {
+        }).then(function (data){
             return res.status(200).json({
                 data: data
             });
@@ -44,25 +46,22 @@ async function listRestaurants(req, res) {
                 error: error
             });
         })
-    }//try
-    catch (e) {
+    }
+    catch(e){
         console.log(e);
-    }//catch
-}//listar resturants
+    }
+}
 
-async function updateRestaurant(req, res) {
-    try {
+async function updateRestaurant(req, res){
+    try{
         await restaurant.update({
             restaurantName: req.body.restaurantName,
-            restaurantNit: req.body.restaurantNit,
             restaurantAddress: req.body.restaurantAddress,
             restaurantPhone: req.body.restaurantPhone,
             cityId: req.body.cityId
-        }, {
-            where: {
-                restaurantId: req.params.restaurantId
-            }
-        }).then(function (data) {
+        },{ 
+            where: { restaurantId :  req.params.restaurantId }
+        }).then(function (data){
             return res.status(200).json({
                 data: data
             });
@@ -71,19 +70,17 @@ async function updateRestaurant(req, res) {
                 error: error
             });
         })
-    }//try
-    catch (e) {
+    }
+    catch(e){
         console.log(e);
-    }//catch
-}// actualizar restaurants
+    }
+}
 
-async function disableRestaurant(req, res) {
-    try {
+async function disableRestaurant(req, res){
+    try{
         await restaurant.destroy({
-            where: {
-                restaurantId: req.params.restaurantId
-            }
-        }).then(function (data) {
+            where: { restaurantId : req.params.restaurantId}
+        }).then(function (data){
             return res.status(200).json({
                 data: data
             });
@@ -92,20 +89,17 @@ async function disableRestaurant(req, res) {
                 error: error
             });
         })
-    }//try
-    catch (e) {
+    }
+    catch(e){
         console.log(e);
-    }//catch
-}//desabilitar restaurants
+    }
+}
 
-async function enableRestaurant(req, res) {
-
-    try {
+async function enableRestaurant(req, res){
+    try{
         await restaurant.restore({
-            where: {
-                restaurantId: req.params.restaurantId
-            }
-        }).then(function (data) {
+            where: { restaurantId : req.params.restaurantId}
+        }).then(function (data){
             return res.status(200).json({
                 data: data
             });
@@ -114,16 +108,16 @@ async function enableRestaurant(req, res) {
                 error: error
             });
         })
-    }//try
-    catch (e) {
+    }
+    catch (e){
         console.log(e);
-    }//catch
-}// habilitar restaurants
+    }
+}
 
 module.exports = {
     createRestaurant,
-    listRestaurants,
+    listRestaurant,
     updateRestaurant,
     disableRestaurant,
     enableRestaurant
-}//esportar
+}
